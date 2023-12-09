@@ -1,4 +1,5 @@
 from config import paths as path
+from preprocess import imagemanager as im
 import os
 import time
 import pytesseract
@@ -15,16 +16,15 @@ SAVE_PATH = path.OUTPUT_PATH + r'\tekst.txt'
 if __name__ == '__main__':
     startTime = time.process_time()
 
-    image = cv2.imread(PATH_TO_IMAGE)
-    if image is None:
-        raise ValueError(f"Failed to load the image: {PATH_TO_IMAGE}")
+    image = im.get_image(PATH_TO_IMAGE)
+    text = im.image_to_text(image, LANGUAGE)
+    print(text)
 
-    text = pytesseract.image_to_string(image, lang=LANGUAGE)
     try:
         with open(SAVE_PATH, 'w', encoding='utf-8') as f:
             f.write(text)
 
-        print(f'File saved at {SAVE_PATH}')
+        print(f'File saved at {SAVE_PATH}\n')
     except Exception as e:
         print(f'Error while saving image to text file:\n{str(e)}')
 
