@@ -48,3 +48,19 @@ def image_to_text(image, language):
         return pytesseract.image_to_string(image, lang=language)
     except Exception as error:
         raise Exception(f'Error while using Tesseract:\nError: {str(error)}')
+
+def image_to_text_file(image, language, save_path, save_filename):
+    try:
+        if not isinstance(image, np.ndarray):
+            raise ValueError("Invalid image data provided.")
+        if not os.path.exists(save_path):
+            raise FileNotFoundError(f"Save directory does not exist: {save_path}")
+
+        text = image_to_text(image, language)
+
+        with open(f'{save_path}\{save_filename}.txt', 'w', encoding='utf-8') as f:
+            f.write(text)
+        print(f'File saved at {save_path}\{save_filename}.txt')
+
+    except Exception as error:
+        raise Exception(f'Error while saving image to text file:\n{str(error)}')
