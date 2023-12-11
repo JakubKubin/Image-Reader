@@ -64,3 +64,14 @@ def image_to_text_file(image, language, save_path, save_filename):
 
     except Exception as error:
         raise Exception(f'Error while saving image to text file:\n{str(error)}')
+
+def save_image(file_path, image):
+    try:
+        if not file_path:
+            raise ValueError("File path is empty.")
+        if not isinstance(image, np.ndarray):
+            raise ValueError("Invalid image data provided.")
+        if not cv2.imwrite(file_path, image):
+            raise ValueError(f"Failed to save image to: {file_path}")
+    except Exception as error:
+        raise ValueError(f"Error while trying to save image to: {file_path}\nError: {str(error)}")
