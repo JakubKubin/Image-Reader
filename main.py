@@ -12,6 +12,11 @@ os.chdir(path.OUTPUT_PATH)
 LANGUAGE = 'pol'
 SAVE_PATH = path.OUTPUT_PATH
 
+def apply_mask_and_save(image, mask_function, output_filename, language='pol', save_path=SAVE_PATH):
+    masked_image = mask_function(image)
+    im.image_to_text_file(masked_image, language, save_path, output_filename)
+    im.save_image(save_path + fr'\out_{output_filename}.png', masked_image)
+
 if __name__ == '__main__':
     startTime = time.process_time()
 
@@ -27,15 +32,10 @@ if __name__ == '__main__':
     #im.image_to_text_file(image_Calibri, LANGUAGE, SAVE_PATH, "Calibri")
     #im.image_to_text_file(image_Arial, LANGUAGE, SAVE_PATH, "Arial")
 
-    image_mean_masked = pp.mean_mask(image)
-    im.image_to_text_file(image_mean_masked, LANGUAGE, SAVE_PATH, "mean_masked")
-    im.save_image(SAVE_PATH + r'\out_original_mean.png', image_mean_masked)
+    apply_mask_and_save(image, pp.mean_mask, "mean_masked")
 
-    image_static_masked = pp.static_mask(image_Arial)
-    im.image_to_text_file(image_static_masked, LANGUAGE, SAVE_PATH, "static_image_Arial")
-    im.save_image(SAVE_PATH + r'\out_static_image_Arial.png', image_static_masked)
+    apply_mask_and_save(image_Arial, pp.static_mask, "static_image_Arial")
 
-    image_gaussian_masked = pp.gaussian_mask(image_Arial)
-    im.image_to_text_file(image_gaussian_masked, LANGUAGE, SAVE_PATH, "gaussian_masked_image_Arial")
-    im.save_image(SAVE_PATH + r'\out_gaussian_masked_image_Arial.png', image_gaussian_masked)
+    apply_mask_and_save(image_Arial, pp.gaussian_mask, "gaussian_masked_image_Arial")
+
     print("Time elapsed:", time.process_time() - startTime, "s")

@@ -38,7 +38,6 @@ Possible issues are with incompatible packages, try using 'virtualenv' instead o
 - pandas             1.5.3
 - pdf2image          1.16.3
 - Pillow             9.4.0
-- pip                23.2.1
 - prompt-toolkit     3.0.38
 - pytesseract        0.3.10
 - python-dateutil    2.8.2
