@@ -11,12 +11,6 @@
 - Select **ALL** components to be installed
 - Use default destination folder - `C:\Program Files\Tesseract-OCR`
 
-## How to install Poppler for Windows
-- Download the latest poppler package from [@oschwartz10612](https://github.com/oschwartz10612/poppler-windows/releases/)
-- Move the extracted directory to the desired place on your system
-- Add the `bin/` directory to your PATH
-- Test Poppler in **cmd** by running `pdftoppm -h`
-
 ## Throubleshooting
 Possible issues are with incompatible packages, try using 'virtualenv' instead of default pip folder. Make sure that you use proper Python version.
 
