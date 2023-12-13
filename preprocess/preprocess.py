@@ -19,3 +19,11 @@ def static_mask(image):
 
 def gaussian_mask(image):
     return cv2.adaptiveThreshold(image_to_gray_scale(image), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+
+def add_and_average(first_image, second_image):
+    if first_image.shape == second_image.shape:
+        return cv2.add(np.uint8(first_image), np.uint8(second_image)) // 2
+
+def open_binary_image(image):
+    eroded_horizontal = cv2.erode(np.uint8(image), np.ones((3, 3), np.uint8), iterations=1)
+    return cv2.dilate(eroded_horizontal, np.ones((1, 1), np.uint8))

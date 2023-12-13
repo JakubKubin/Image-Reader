@@ -13,9 +13,13 @@ LANGUAGE = 'pol'
 SAVE_PATH = path.OUTPUT_PATH
 
 def apply_mask_and_save(image, mask_function, output_filename, language='pol', save_path=SAVE_PATH):
-    masked_image = mask_function(image)
+    if mask_function is not None:
+        masked_image = mask_function(image)
+    else:
+        masked_image = image
     im.image_to_text_file(masked_image, language, save_path, output_filename)
     im.save_image(save_path + fr'\out_{output_filename}.png', masked_image)
+    return masked_image
 
 if __name__ == '__main__':
     startTime = time.process_time()
@@ -32,10 +36,23 @@ if __name__ == '__main__':
     #im.image_to_text_file(image_Calibri, LANGUAGE, SAVE_PATH, "Calibri")
     #im.image_to_text_file(image_Arial, LANGUAGE, SAVE_PATH, "Arial")
 
-    apply_mask_and_save(image, pp.mean_mask, "mean_masked")
+    original_mean = apply_mask_and_save(image, pp.mean_mask, "mean_masked")
+    original_static = apply_mask_and_save(image, pp.static_mask, "static_mask")
 
-    apply_mask_and_save(image_Arial, pp.static_mask, "static_image_Arial")
+    original_avg = pp.add_and_average(original_mean, original_static)
+    apply_mask_and_save(original_avg, None, "avg_mean_static_original")
 
-    apply_mask_and_save(image_Arial, pp.gaussian_mask, "gaussian_masked_image_Arial")
+    #opened_original_mean = pp.open_binary_image(original_mean)
+    opened_original_static = pp.open_binary_image(original_static)
+
+    original_avg_closed = pp.add_and_average(opened_original_static, original_mean)
+    apply_mask_and_save(original_avg_closed, None, "avg_opened_mean_static_original")
+
+    mean = apply_mask_and_save(image_Arial, pp.mean_mask, "mean_masked_Arial")
+    static = apply_mask_and_save(image_Arial, pp.static_mask, "static_image_Arial")
+
+    average = pp.add_and_average(mean, static)
+
+    apply_mask_and_save(average, None, "average_mean_static_image_Arial")
 
     print("Time elapsed:", time.process_time() - startTime, "s")
