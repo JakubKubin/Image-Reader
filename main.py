@@ -24,11 +24,11 @@ def apply_mask_and_save(image, mask_function, output_filename, language='pol', s
 if __name__ == '__main__':
     startTime = time.process_time()
 
-    image = im.get_image(path.IMAGE_PATH + r'\zdj.jpg')
+    #image = im.get_image(path.IMAGE_PATH + r'\zdj.jpg')
     image_ROI = im.get_image(path.IMAGE_PATH + r'\zdj_ROI.jpg')
-    image_TNR = im.get_image(path.IMAGE_PATH + r'\zdj_TNR.jpg')
-    image_Calibri = im.get_image(path.IMAGE_PATH + r'\zdj_Calibri.jpg')
-    image_Arial = im.get_image(path.IMAGE_PATH + r'\zdj_Arial.jpg')
+    #image_TNR = im.get_image(path.IMAGE_PATH + r'\zdj_TNR.jpg')
+    #image_Calibri = im.get_image(path.IMAGE_PATH + r'\zdj_Calibri.jpg')
+    #image_Arial = im.get_image(path.IMAGE_PATH + r'\zdj_Arial.jpg')
 
     #im.image_to_text_file(image, LANGUAGE, SAVE_PATH, "original")
     #im.image_to_text_file(image_ROI, LANGUAGE, SAVE_PATH, "ROI")
@@ -36,23 +36,28 @@ if __name__ == '__main__':
     #im.image_to_text_file(image_Calibri, LANGUAGE, SAVE_PATH, "Calibri")
     #im.image_to_text_file(image_Arial, LANGUAGE, SAVE_PATH, "Arial")
 
-    original_mean = apply_mask_and_save(image, pp.mean_mask, "mean_masked")
-    original_static = apply_mask_and_save(image, pp.static_mask, "static_mask")
+    #original_mean = apply_mask_and_save(image, pp.mean_mask, "mean_masked")
+    #original_static = apply_mask_and_save(image, pp.static_mask, "static_mask")
+    #original_otsu =  apply_mask_and_save(image, pp.otsu_mask, "otsu_masked")
 
-    original_avg = pp.add_and_average(original_mean, original_static)
-    apply_mask_and_save(original_avg, None, "avg_mean_static_original")
+    roi_mean = apply_mask_and_save(image_ROI, pp.mean_mask, "mean_masked_ROI")
+    #roi_static = apply_mask_and_save(image_ROI, pp.static_mask, "static_masked_ROI")
+    roi_otsu = apply_mask_and_save(image_ROI, pp.otsu_mask, "otsu_masked_ROI")
 
-    #opened_original_mean = pp.open_binary_image(original_mean)
-    opened_original_static = pp.open_binary_image(original_static)
+    roi_mean_closed = apply_mask_and_save(roi_mean, pp.close_binary_image, "closed_mean_masked_ROI")
+    avg_roi_mean_closed_otsu = pp.add_and_average(roi_mean_closed, roi_otsu)
+    binary_avg_roi_mean_closed_otsu = apply_mask_and_save(avg_roi_mean_closed_otsu, pp.image_to_binary, "avg_closed_mean_otsu_ROI")
+    open_binary_avg_roi_mean_closed_otsu = apply_mask_and_save(binary_avg_roi_mean_closed_otsu, pp.open_binary_image, "binary_avg_roi_mean_closed_otsu_ROI")
+    #opened_original_static = pp.open_binary_image(original_static)
 
-    original_avg_closed = pp.add_and_average(opened_original_static, original_mean)
-    apply_mask_and_save(original_avg_closed, None, "avg_opened_mean_static_original")
+    #original_avg_closed = pp.add_and_average(opened_original_static, original_mean)
+    #apply_mask_and_save(original_avg_closed, None, "avg_opened_mean_static_original")
 
-    mean = apply_mask_and_save(image_Arial, pp.mean_mask, "mean_masked_Arial")
-    static = apply_mask_and_save(image_Arial, pp.static_mask, "static_image_Arial")
+    #mean = apply_mask_and_save(image_Arial, pp.mean_mask, "mean_masked_Arial")
+    #static = apply_mask_and_save(image_Arial, pp.static_mask, "static_image_Arial")
 
-    average = pp.add_and_average(mean, static)
+    #average = pp.add_and_average(mean, static)
 
-    apply_mask_and_save(average, None, "average_mean_static_image_Arial")
+    #apply_mask_and_save(average, None, "average_mean_static_image_Arial")
 
     print("Time elapsed:", time.process_time() - startTime, "s")

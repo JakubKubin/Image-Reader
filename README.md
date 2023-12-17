@@ -3,7 +3,8 @@
 ## How to make things work:
 - Use Python 3.9.12
 - ```pip install --no-dependencies -r .\requirements.txt```
-- Install Tesseract and Poppler
+- Install Tesseract
+- Make sure that PATH contains `C:\Program Files\Tesseract-OCR`
 
 ## How to install Tesseract OCR for Windows
 - Download installer [Tesseract-OCR](https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.3.3.20231005.exe)
@@ -21,7 +22,6 @@ Possible issues are with incompatible packages, try using 'virtualenv' instead o
 - click              8.1.3
 - colorama           0.4.6
 - emit               0.4.0
-- Flask              2.2.3
 - idna               3.4
 - itsdangerous       2.1.2
 - Jinja2             3.1.2
@@ -30,7 +30,6 @@ Possible issues are with incompatible packages, try using 'virtualenv' instead o
 - opencv-python      4.8.1.78
 - packaging          23.0
 - pandas             1.5.3
-- pdf2image          1.16.3
 - Pillow             9.4.0
 - prompt-toolkit     3.0.38
 - pytesseract        0.3.10
