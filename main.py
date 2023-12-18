@@ -24,8 +24,9 @@ def apply_mask_and_save(image, mask_function, output_filename, language='pol', s
 if __name__ == '__main__':
     startTime = time.process_time()
 
-    image = im.get_image(path.IMAGE_PATH + r'\zdj.jpg')
+    #image = im.get_image(path.IMAGE_PATH + r'\zdj.jpg')
     image_ROI = im.get_image(path.IMAGE_PATH + r'\zdj_ROI.jpg')
+<<<<<<< HEAD
     image_TNR = im.get_image(path.IMAGE_PATH + r'\zdj_TNR.jpg')
     image_Calibri = im.get_image(path.IMAGE_PATH + r'\zdj_Calibri.jpg')
     image_Arial = im.get_image(path.IMAGE_PATH + r'\zdj_Arial.jpg')
@@ -37,6 +38,11 @@ if __name__ == '__main__':
     skan_ROI = im.get_image(path.IMAGE_PATH + r'\skan_ROI.jpg')
     skan_Abadi = im.get_image(path.IMAGE_PATH + r'\skan_Abadi.jpg')
     skan_Ghotic = im.get_image(path.IMAGE_PATH + r'\skan_Ghotic.jpg')
+=======
+    #image_TNR = im.get_image(path.IMAGE_PATH + r'\zdj_TNR.jpg')
+    #image_Calibri = im.get_image(path.IMAGE_PATH + r'\zdj_Calibri.jpg')
+    #image_Arial = im.get_image(path.IMAGE_PATH + r'\zdj_Arial.jpg')
+>>>>>>> 09257760ac9341da84680e327c732b5210b0252e
 
     #im.image_to_text_file(image, LANGUAGE, SAVE_PATH, "original")
     #im.image_to_text_file(image_ROI, LANGUAGE, SAVE_PATH, "ROI")
@@ -50,6 +56,7 @@ if __name__ == '__main__':
     #im.image_to_text_file(skan_Ghotic, LANGUAGE, SAVE_PATH, "Ghotic")
     
 
+<<<<<<< HEAD
     original_mean = apply_mask_and_save(image, pp.mean_mask, "mean_masked")
     original_static = apply_mask_and_save(image, pp.static_mask, "static_mask")
     
@@ -78,10 +85,29 @@ if __name__ == '__main__':
     #skan +inne czcionki
     skan_original_avg_closed = pp.add_and_average(opened_original_static_skan, skan_original_mean)
     apply_mask_and_save(skan_original_avg_closed, None, "avg_opened_mean_static_original_skan")
+=======
+    #original_mean = apply_mask_and_save(image, pp.mean_mask, "mean_masked")
+    #original_static = apply_mask_and_save(image, pp.static_mask, "static_mask")
+    #original_otsu =  apply_mask_and_save(image, pp.otsu_mask, "otsu_masked")
 
-    mean = apply_mask_and_save(image_Arial, pp.mean_mask, "mean_masked_Arial")
-    static = apply_mask_and_save(image_Arial, pp.static_mask, "static_image_Arial")
+    roi_mean = apply_mask_and_save(image_ROI, pp.mean_mask, "mean_masked_ROI")
+    #roi_static = apply_mask_and_save(image_ROI, pp.static_mask, "static_masked_ROI")
+    roi_otsu = apply_mask_and_save(image_ROI, pp.otsu_mask, "otsu_masked_ROI")
 
+    roi_mean_closed = apply_mask_and_save(roi_mean, pp.close_binary_image, "closed_mean_masked_ROI")
+    avg_roi_mean_closed_otsu = pp.add_and_average(roi_mean_closed, roi_otsu)
+    binary_avg_roi_mean_closed_otsu = apply_mask_and_save(avg_roi_mean_closed_otsu, pp.image_to_binary, "avg_closed_mean_otsu_ROI")
+    open_binary_avg_roi_mean_closed_otsu = apply_mask_and_save(binary_avg_roi_mean_closed_otsu, pp.open_binary_image, "binary_avg_roi_mean_closed_otsu_ROI")
+    #opened_original_static = pp.open_binary_image(original_static)
+
+    #original_avg_closed = pp.add_and_average(opened_original_static, original_mean)
+    #apply_mask_and_save(original_avg_closed, None, "avg_opened_mean_static_original")
+>>>>>>> 09257760ac9341da84680e327c732b5210b0252e
+
+    #mean = apply_mask_and_save(image_Arial, pp.mean_mask, "mean_masked_Arial")
+    #static = apply_mask_and_save(image_Arial, pp.static_mask, "static_image_Arial")
+
+<<<<<<< HEAD
     #skan +inne czcionki
     mean_skan = apply_mask_and_save(skan_Abadi, pp.mean_mask, "mean_masked_skan_Abadi")
     static_skan = apply_mask_and_save(skan_Abadi, pp.static_mask, "static_skan_Abadi")
@@ -94,5 +120,10 @@ if __name__ == '__main__':
     apply_mask_and_save(average, None, "average_mean_static_image_Arial")
     #skan +inne czcionki
     apply_mask_and_save(average_skan, None, "average_mean_static_image_Abadi")
+=======
+    #average = pp.add_and_average(mean, static)
+
+    #apply_mask_and_save(average, None, "average_mean_static_image_Arial")
+>>>>>>> 09257760ac9341da84680e327c732b5210b0252e
 
     print("Time elapsed:", time.process_time() - startTime, "s")
