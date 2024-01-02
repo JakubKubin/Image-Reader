@@ -3,14 +3,9 @@
 ## How to make things work:
 
 - Use Python 3.9.12
-<<<<<<< HEAD
-- `pip install --no-dependencies -r .\requirements.txt`
-- Install Tesseract
-=======
 - ```pip install --no-dependencies -r .\requirements.txt```
 - Install Tesseract
 - Make sure that PATH contains `C:\Program Files\Tesseract-OCR`
->>>>>>> 09257760ac9341da84680e327c732b5210b0252e
 
 ## How to install Tesseract OCR for Windows
 
@@ -28,33 +23,6 @@ Possible issues are with incompatible packages, try using 'virtualenv' instead o
 - base256 1.0.1
 - certifi 2022.12.7
 - charset-normalizer 3.1.0
-<<<<<<< HEAD
-- click 8.1.3
-- colorama 0.4.6
-- emit 0.4.0
-- Flask 2.2.3
-- idna 3.4
-- itsdangerous 2.1.2
-- Jinja2 3.1.2
-- MarkupSafe 2.1.2
-- numpy 1.24.2
-- opencv-python 4.8.1.78
-- packaging 23.0
-- pandas 1.5.3
-- pdf2image 1.16.3
-- Pillow 9.4.0
-- prompt-toolkit 3.0.38
-- pytesseract 0.3.10
-- python-dateutil 2.8.2
-- pytz 2022.7.1
-- requests 2.28.2
-- setuptools 67.1.0
-- six 1.16.0
-- urllib3 1.26.15
-- wcwidth 0.2.6
-- Werkzeug 2.2.3
-- wheel 0.38.4
-=======
 - click              8.1.3
 - colorama           0.4.6
 - emit               0.4.0
@@ -78,4 +46,3 @@ Possible issues are with incompatible packages, try using 'virtualenv' instead o
 - wcwidth            0.2.6
 - Werkzeug           2.2.3
 - wheel              0.38.4
->>>>>>> 09257760ac9341da84680e327c732b5210b0252e
