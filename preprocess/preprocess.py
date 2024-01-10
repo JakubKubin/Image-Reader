@@ -10,7 +10,7 @@ def blur_image(image):
     return cv2.GaussianBlur(image, (5, 5), 0)
 
 def mean_mask(image):
-    return cv2.adaptiveThreshold(image_to_gray_scale(image), 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+    return cv2.adaptiveThreshold(image_to_gray_scale(image), 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 31, 11)
 
 def static_mask(image):
     lower_mask_value = np.array([100, 100, 100])
@@ -25,12 +25,12 @@ def add_and_average(first_image, second_image):
         return cv2.add(np.uint8(first_image), np.uint8(second_image)) // 2
 
 def open_binary_image(image):
-    eroded_horizontal = cv2.erode(np.uint8(image), np.ones((2, 2), np.uint8), iterations=1)
-    return cv2.dilate(eroded_horizontal, np.ones((2, 2), np.uint8))
+    eroded_horizontal = cv2.erode(np.uint8(image), np.ones((4, 4), np.uint8), iterations=1)
+    return cv2.dilate(eroded_horizontal, np.ones((1, 1), np.uint8))
 
 def close_binary_image(image):
     dilated_horizontal = cv2.dilate(np.uint8(image), np.ones((3, 3), np.uint8), iterations=1)
-    return cv2.erode(dilated_horizontal, np.ones((3, 3), np.uint8))
+    return cv2.erode(dilated_horizontal, np.ones((2, 2), np.uint8))
 
 def image_to_binary(image):
     if len(image.shape) != 2:
